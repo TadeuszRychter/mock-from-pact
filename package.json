@@ -1,4 +1,7 @@
 {
+  "name": "mock-from-pact",
+  "main": "app.js",
+  "version": "1.0.0",
   "dependencies": {
     "cross-var": "^1.1.0",
     "express": "^4.16.4",
@@ -8,5 +11,8 @@
   "scripts": {
     "start": "cross-var ./node_modules/.bin/pm2 start app.js -- $MYPATH $PORT",
     "stop": "cross-var ./node_modules/.bin/pm2 stop app.js -- $MYPATH $PORT"
-  }
+  },
+  "author": "Tadeusz Rychter",
+  "license": "MIT",
+  "homepage": "https://github.com/TadeuszRychter/mock-from-pact"
 }
