@@ -10,8 +10,9 @@
     "pm2": "^3.2.2"
   },
   "scripts": {
-    "start": "cross-var ./node_modules/.bin/pm2 start app.js -- $MYPATH $PORT",
-    "stop": "cross-var ./node_modules/.bin/pm2 stop app.js -- $MYPATH $PORT"
+    "start": "cross-var ./node_modules/.bin/pm2 start app.js -- $INTERACTIONS $PORT",
+    "start:raw": "cross-var node app.js -- $INTERACTIONS $PORT",
+    "stop": "./node_modules/.bin/pm2 stop app.js"
   },
   "author": "Tadeusz Rychter",
   "license": "MIT",
