@@ -5,8 +5,8 @@ const cors = require('cors');
 const createEndpoints = require('./createEndpoints');
 const fs = require('fs');
 const path = require('path');
-const interactionsPath = process.argv[2];
-const port = process.argv[3];
+const interactionsPath = process.argv[3];
+const port = process.argv[4];
 const interactions = require(interactionsPath);
 
 function sortInteractionByPath(ints) {
