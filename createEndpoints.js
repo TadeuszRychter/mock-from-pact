@@ -47,7 +47,7 @@ const sendResponse = (int, res, next) => {
             ...int.willRespondWith.headers
         })
         .set('etag', false)
-        .set('Cache-Control', 'no-store, no-cache, must-revalidate, private')
+        .set('Cache-Control', 'no-cache, must-revalidate, private')
         .send(int.willRespondWith.body)
         .end();
     next();
