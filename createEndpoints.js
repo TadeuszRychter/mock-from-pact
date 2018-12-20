@@ -29,15 +29,15 @@ href: '/path?q=b',
 _raw: '/path?q=b' }
 */
 
+const matchBody = (intBody, reqBody) => JSON.stringify(intBody) == reqBody;
 
 const matchInteraction = (req, interactions) =>
     Object.values(interactions).find(
         int =>
-            (
                 (int.withRequest.query === req._parsedUrl.query || (int.withRequest.query === undefined && req._parsedUrl.query === null)) &&
                 int.withRequest.method === req.method &&
-                headersMatch(int, req)
-            )
+                headersMatch(int, req) &&
+                (req.body ? matchBody(int.withRequest.body, req.body) : true)
     );
 
 const sendResponse = (int, res, next) => {
@@ -56,9 +56,18 @@ const sendResponse = (int, res, next) => {
 module.exports = (path, interactions, app) => app.all(
     path,
     (req, res, next) => {
-        const matchedInteraction = matchInteraction(req, interactions);
-        matchedInteraction
-            ? sendResponse(matchedInteraction, res, next)
-            : sendNotFound(path, interactions, req, res, next)
+        var data='';
+        req.setEncoding('utf8');
+        req.on('data', function(chunk) {
+            data += chunk;
+        });
+
+        req.on('end', function() {
+            req.body = data;
+            const matchedInteraction = matchInteraction(req, interactions);
+            matchedInteraction
+                ? sendResponse(matchedInteraction, res, next)
+                : sendNotFound(path, interactions, req, res, next)
+        });
     }
 );
