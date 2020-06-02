@@ -17,7 +17,7 @@ function sortInteractionByPath(ints) {
   return sorted;
 }
 
-app.use(cors());
+app.use(cors({origin: true, credentials: true}));
 
 // log only 4xx and 5xx responses to console
 app.use(morgan('dev', {
