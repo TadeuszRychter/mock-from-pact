@@ -36,8 +36,8 @@ const matchInteraction = (req, interactions) =>
         int =>
                 (int.withRequest.query === req._parsedUrl.query || (int.withRequest.query === undefined && req._parsedUrl.query === null)) &&
                 int.withRequest.method === req.method &&
-                headersMatch(int, req) &&
-                (req.body ? matchBody(int.withRequest.body, req.body) : true)
+                (headersMatch(int, req) || int.skipHeaders) &&
+                (int.skipBody ? true : req.body ? matchBody(int.withRequest.body, req.body) : true)
     );
 
 const sendResponse = (int, res, next) => {
